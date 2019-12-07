@@ -3,6 +3,10 @@ package _03_To_Do_List;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,7 +114,7 @@ public class ToDoList implements ActionListener{
 			yes += "\n";
 		}
 		try {
-			FileWriter fw = new FileWriter("list.txt");
+			FileWriter fw = new FileWriter(new File("list.txt"));
 			fw.write(yes);
 			fw.close();
 		} catch (IOException e) {
@@ -120,7 +124,24 @@ public class ToDoList implements ActionListener{
 	}
 	
 	public void loadList() {
-		System.out.println("h");
+		tasks.clear();
+		ArrayList<String> newTasks = new ArrayList<String>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("list.txt"));
+			String line = br.readLine();
+			while(line != null){
+				newTasks.add(line);
+				line = br.readLine();
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tasks = newTasks;
 	}
 	
 	public static void main(String[] args) {

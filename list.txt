@@ -1,7 +1,1 @@
-a
-b
-c
-d
-e
-f
-g
+add a task to the to-do list
